@@ -1,6 +1,5 @@
 import express from 'express'
 import cors from 'cors'
-import { v4, validate } from 'uuid'
 import fs from 'fs'
 import path from 'path'
 import helmet from 'helmet'
@@ -14,6 +13,7 @@ let CORS: string
 let VERSION: string
 let VERSION_INT: number
 let PASSWORD: string
+let HOST: string
 
 try {
     const envJson = fs.readFileSync(path.join(__dirname, '../env.json'), 'utf-8')
@@ -25,6 +25,7 @@ try {
     VERSION = packageObj.version
     VERSION_INT = packageObj.version_int
     PASSWORD = envObj.password
+    HOST = envObj.host
 } catch {
     console.error('Fatal error: cannot load env.json properly')
     process.exit(1)
@@ -65,11 +66,19 @@ app.use('/abuse_report', express.static(path.join(__dirname, '../front-end/abuse
 app.use('/abuse_report/*', (_, res) => res.sendFile(path.join(__dirname, '../front-end/abuse_report/index.html')))
 
 app.get('/apis', (req, res) => {
-    res.json({
-        bug_report: '/bug_report',
-        abuse_report: '/abuse_report',
-        apis: '/api'
-    })
+    // res.json({
+    //     bug_report: `${HOST}/bug_report`,
+    //     abuse_report: `${HOST}/abuse_report`,
+    //     apis: `${HOST}/api`
+    // })
+    res.contentType('application/json')
+    res.status(200)
+    res.send(JSON.stringify({
+        bug_report: `${HOST}/bug_report`,
+        abuse_report: `${HOST}/abuse_report`,
+        apis: `${HOST}/api`
+    }, undefined, 4))
+    res.end()
 })
 
 app.get('/version', (req, res) => {
