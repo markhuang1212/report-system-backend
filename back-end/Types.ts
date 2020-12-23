@@ -6,7 +6,6 @@ declare namespace Types {
         feedback_email: string
         feedback_description: string
         feedback_phone: string
-        feedback_category: string
     }
 
     interface AbuseReportClientRequest {
@@ -22,26 +21,21 @@ declare namespace Types {
         submit_date: Date
         submit_ip: string
         feedback_id: string
-        feedback_name?: string
-        feedback_email?: string
+        feedback_name: string
+        feedback_email: string
         feedback_description: string
-        feedback_phone?: string
-        feedback_category?: string
-
-        feedback_afid?: string
+        feedback_phone: string
     }
 
     interface AbuseReportServerItem {
         submit_date: Date
         submit_ip: string
         feedback_id: string
-        feedback_name?: string
-        feedback_email?: string
+        feedback_name: string
+        feedback_email: string
         feedback_description: string
-        feedback_phone?: string
-        feedback_category?: string
-
-        feedback_afid?: string
+        feedback_phone: string
+        feedback_category: string
     }
 
     interface APIReportFrontendRequest {

@@ -5,8 +5,14 @@ import path from 'path'
 
 const DATE_FOLDER_FORMAT = 'YYYY-MM-DD'
 
-if (fs.existsSync(path.join(__dirname, '../temp')) == false) {
-    fs.mkdirSync(path.join(__dirname, '../temp'))
+if (fs.existsSync(path.join(__dirname, '../temp/abuse_report')) == false) {
+    fs.mkdirSync(path.join(__dirname, '../temp/abuse_report'), { recursive: true })
+}
+if (fs.existsSync(path.join(__dirname, '../temp/bug_report')) == false) {
+    fs.mkdirSync(path.join(__dirname, '../temp/bug_report'))
+}
+if (fs.existsSync(path.join(__dirname, '../temp/api_data')) == false) {
+    fs.mkdirSync(path.join(__dirname, '../temp/api_data'))
 }
 
 class FeedbackHandlerCoordinator {
@@ -21,11 +27,9 @@ class FeedbackHandlerCoordinator {
         const curr_date = dayjs().format(DATE_FOLDER_FORMAT)
         if (this.curr_date == curr_date)
             return
-        if (fs.existsSync(path.join(__dirname, '../temp', curr_date)) == true) {
-            this.curr_date = curr_date
-            return
-        }
-        fs.mkdirSync(path.join(__dirname, '../temp', curr_date))
+        fs.mkdirSync(path.join(__dirname, '../temp/bug_report', curr_date))
+        fs.mkdirSync(path.join(__dirname, '../temp/abuse_report', curr_date))
+        fs.mkdirSync(path.join(__dirname, '../temp/api_data', curr_date))
         this.curr_date = curr_date
     }
 

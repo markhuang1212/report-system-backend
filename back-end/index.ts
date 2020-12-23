@@ -4,16 +4,10 @@ import { v4, validate } from 'uuid'
 import fs from 'fs'
 import path from 'path'
 import helmet from 'helmet'
-import FeedbackHandlerCoordinator from './FeedbackHandler'
 import ServeIndex from 'serve-index'
 import appApiMiddleware from './AppApiMiddleware'
 import bugReportMiddleware from './BugReportMiddleware'
 import abuseReportMiddleware from './AbuseReportMiddleware'
-
-const app = express()
-const serveIndex = ServeIndex(path.join(__dirname, '../temp'), { stylesheet: path.join(__dirname, '../static/admin.css') })
-
-const SCREENSHOT_SIZE_LIMIT_BYTES = 8192
 
 let PORT: number
 let CORS: string
@@ -36,6 +30,12 @@ try {
     process.exit(1)
 }
 
+const app = express()
+
+const serveIndex =
+    ServeIndex(path.join(__dirname, '../temp'), { stylesheet: path.join(__dirname, '../static/admin.css') })
+
+
 app.use(helmet.hidePoweredBy())
 
 app.use(cors({
@@ -55,8 +55,22 @@ app.use('/admin/:password/', (req, res, next) => {
 app.use('/admin/:password/', serveIndex, express.static(path.join(__dirname, '../temp')))
 
 app.use('/api', appApiMiddleware)
+
 app.use('/bug_report', bugReportMiddleware)
+app.use('/bug_report', express.static(path.join(__dirname, '../front-end/bug_report')))
+app.use('/bug_report', (_, res) => res.sendFile(path.join(__dirname, '../front-end/bug_report/index.html')))
+
 app.use('/abuse_report', abuseReportMiddleware)
+app.use('/bug_report', express.static(path.join(__dirname, '../front-end/abuse_report')))
+app.use('/abuse_report', (_, res) => res.sendFile(path.join(__dirname, '../front-end/abuse_report/index.html')))
+
+app.get('/apis', (req, res) => {
+    res.json({
+        bug_report: '/bug_report',
+        abuse_report: '/abuse_report',
+        apis: '/api'
+    })
+})
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log('listening on port ' + PORT)
