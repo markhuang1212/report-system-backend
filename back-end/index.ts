@@ -57,28 +57,20 @@ app.use('/admin/:password/', serveIndex, express.static(path.join(__dirname, '..
 
 app.use('/api', appApiMiddleware)
 
-app.use('/bug_report', bugReportMiddleware)
-app.use('/bug_report', express.static(path.join(__dirname, '../front-end/bug_report')))
-app.use('/bug_report/*', (_, res) => res.sendFile(path.join(__dirname, '../front-end/bug_report/index.html')))
+app.use('/', bugReportMiddleware)
+app.use('/', express.static(path.join(__dirname, '../front-end/bug_report')))
+app.use('/', (_, res) => res.sendFile(path.join(__dirname, '../front-end/bug_report/index.html')))
 
 app.use('/abuse_report', abuseReportMiddleware)
 app.use('/abuse_report', express.static(path.join(__dirname, '../front-end/abuse_report')))
 app.use('/abuse_report/*', (_, res) => res.sendFile(path.join(__dirname, '../front-end/abuse_report/index.html')))
 
 app.get('/apis', (req, res) => {
-    // res.json({
-    //     bug_report: `${HOST}/bug_report`,
-    //     abuse_report: `${HOST}/abuse_report`,
-    //     apis: `${HOST}/api`
-    // })
-    res.contentType('application/json')
-    res.status(200)
-    res.send(JSON.stringify({
-        web_bug_report: `${HOST}/bug_report`,
-        web_abuse_report: `${HOST}/abuse_report`,
-        api_report: `${HOST}/api/report`
-    }, undefined, 4))
-    res.end()
+    res.json({
+        bug_report: `${HOST}/`,
+        abuse_report: `${HOST}/abuse_report`,
+        apis: `${HOST}/api`
+    })
 })
 
 app.get('/version', (req, res) => {
@@ -87,8 +79,6 @@ app.get('/version', (req, res) => {
         version_int: 3
     })
 })
-
-app.get('/', (_, res) => res.redirect('/bug_report'))
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log('listening on port ' + PORT)
