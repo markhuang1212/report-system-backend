@@ -67,9 +67,9 @@ app.use('/abuse_report/*', (_, res) => res.sendFile(path.join(__dirname, '../fro
 
 app.get('/apis', (req, res) => {
     res.json({
-        bug_report: `${HOST}/`,
-        abuse_report: `${HOST}/abuse_report`,
-        apis: `${HOST}/api`
+        web_bug_report: `${HOST}/`,
+        web_abuse_report: `${HOST}/abuse_report`,
+        api_report: `${HOST}/api/report`
     })
 })
 
