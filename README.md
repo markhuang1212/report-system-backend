@@ -17,17 +17,9 @@ sudo apt-get install -y nodejs
     npm run build # 编译
     ```
 
-3. 安装前端依赖
-    ```sh
-    cd front-end
-    npm i # 安装依赖
-    npm run build # 编译
-    cd ..
-    ```
+3.  配置运行端口。在`./env.json`的`port`中填入后端运行的端口。
 
-4.  配置运行端口。在`./env.json`的`port`中填入后端实际运行的端口。在`./front-end/src/env.json`的`port`中填入外网实际访问的口（如果后端在代理下运行这两个端口可能不一样）。
-
-5.  运行
+4.  运行
     ```
     node build/index.js
     ```
@@ -42,7 +34,7 @@ sudo apt-get install -y nodejs
 
 默认支持英语(en)，简体中文(zh-CN)，繁体中文-香港(zh-HK)，繁体中文-台湾(zh-TW)。默认会根据当前浏览器环境决定语言。如果当前环境语言不支持，默认使用英语。
 
-如果需要强制更改语言，可在url中加入`lng`参数。如`http://localhost:8080/?lng=zh-CN`
+如果需要强制更改语言，可在url中加入`lng`参数。如`http://localhost:8080/bug_report/?lng=zh-CN`
 
 ### 后台管理密码
 

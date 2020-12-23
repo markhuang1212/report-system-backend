@@ -72,6 +72,13 @@ app.get('/apis', (req, res) => {
     })
 })
 
+app.get('/version', (req, res) => {
+    res.json({
+        version: '1.1.0',
+        version_int: 3
+    })
+})
+
 app.listen(PORT, '0.0.0.0', () => {
     console.log('listening on port ' + PORT)
 })

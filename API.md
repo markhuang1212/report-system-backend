@@ -9,8 +9,25 @@
 }
 ```
 
-### Get `/generateFeedbackId`
+### Get `/apis`
 
-### Post `/feedbackScreenshots`
+```json
+{
+    "bug_report": "/bug_report",
+    "abuse_report": "abuse_report",
+    "api": "/api"
+}
+```
 
-### Post `feedbackInfo`
+### Post `/api/report`
+
+```json
+{
+    "feedback_afid": "string",
+    "feedback_description": "string"
+}
+```
+
+### Webpage `/bug_report`
+
+### Webpage `/abuse_report`
