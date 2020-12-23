@@ -74,9 +74,9 @@ app.get('/apis', (req, res) => {
     res.contentType('application/json')
     res.status(200)
     res.send(JSON.stringify({
-        bug_report: `${HOST}/bug_report`,
-        abuse_report: `${HOST}/abuse_report`,
-        apis: `${HOST}/api`
+        web_bug_report: `${HOST}/bug_report`,
+        web_abuse_report: `${HOST}/abuse_report`,
+        api_report: `${HOST}/api/report`
     }, undefined, 4))
     res.end()
 })
@@ -87,6 +87,8 @@ app.get('/version', (req, res) => {
         version_int: 3
     })
 })
+
+app.get('/', (_, res) => res.redirect('/bug_report'))
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log('listening on port ' + PORT)
