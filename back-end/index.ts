@@ -59,7 +59,7 @@ app.use('/api', appApiMiddleware)
 
 app.use('/', bugReportMiddleware)
 app.use('/', express.static(path.join(__dirname, '../front-end/bug_report')))
-app.use('/', (_, res) => res.sendFile(path.join(__dirname, '../front-end/bug_report/index.html')))
+app.get('/', (_, res) => res.sendFile(path.join(__dirname, '../front-end/bug_report/index.html')))
 
 app.use('/abuse_report', abuseReportMiddleware)
 app.use('/abuse_report', express.static(path.join(__dirname, '../front-end/abuse_report')))
