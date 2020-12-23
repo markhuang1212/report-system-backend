@@ -27,9 +27,12 @@ class FeedbackHandlerCoordinator {
         const curr_date = dayjs().format(DATE_FOLDER_FORMAT)
         if (this.curr_date == curr_date)
             return
-        fs.mkdirSync(path.join(__dirname, '../temp/bug_report', curr_date))
-        fs.mkdirSync(path.join(__dirname, '../temp/abuse_report', curr_date))
-        fs.mkdirSync(path.join(__dirname, '../temp/api_data', curr_date))
+        if (fs.existsSync(path.join(__dirname, '../temp/bug_report', curr_date)) == false)
+            fs.mkdirSync(path.join(__dirname, '../temp/bug_report', curr_date))
+        if (fs.existsSync(path.join(__dirname, '../temp/abuse_report', curr_date)) == false)
+            fs.mkdirSync(path.join(__dirname, '../temp/abuse_report', curr_date))
+        if (fs.existsSync(path.join(__dirname, '../temp/api_data', curr_date)) == false)
+            fs.mkdirSync(path.join(__dirname, '../temp/api_data', curr_date))
         this.curr_date = curr_date
     }
 

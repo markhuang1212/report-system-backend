@@ -19,6 +19,7 @@ abuseReportMiddleware.post('/feedback', (req, res) => {
     const handler = FeedbackHandlerCoordinator.shared.find(body.feedback_id)
 
     if (handler === undefined) {
+        console.log('/abuse_report/feedback failed')
         res.status(500).end()
         return
     }
@@ -35,6 +36,8 @@ abuseReportMiddleware.post('/feedback', (req, res) => {
     }
 
     fs.writeFileSync(path.join(__dirname, '../temp/abuse_report', handler!.date_string, `${handler!.feedback_id}.json`), JSON.stringify(feedback, undefined, 4))
+
+    res.status(200).end()
 
 })
 

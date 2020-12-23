@@ -33,7 +33,9 @@ bugReportMiddleware.post('/feedback', (req, res) => {
         feedback_phone: body.feedback_phone
     }
 
-    fs.writeFileSync(path.join(__dirname, '../temp/abuse_report', handler!.date_string, `${handler!.feedback_id}.json`), JSON.stringify(feedback, undefined, 4))
+    fs.writeFileSync(path.join(__dirname, '../temp/bug_report', handler!.date_string, `${handler!.feedback_id}.json`), JSON.stringify(feedback, undefined, 4))
+
+    res.status(200).end()
 
 })
 
