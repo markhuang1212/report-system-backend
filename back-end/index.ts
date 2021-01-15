@@ -36,7 +36,6 @@ const app = express()
 const serveIndex =
     ServeIndex(path.join(__dirname, '../temp'), { stylesheet: path.join(__dirname, '../static/admin.css') })
 
-
 app.use(helmet.hidePoweredBy())
 
 app.use(cors({
@@ -64,7 +63,7 @@ app.get('/', (_, res) => res.sendFile(path.join(__dirname, '../front-end/bug_rep
 app.use('/abuse_report', abuseReportMiddleware)
 app.use('/abuse_report', express.static(path.join(__dirname, '../front-end/abuse_report')))
 app.use('/abuse_report/*', (_, res) => res.sendFile(path.join(__dirname, '../front-end/abuse_report/index.html')))
-
+ 
 app.get('/apis', (req, res) => {
     res.json({
         web_bug_report: `${HOST}/`,
